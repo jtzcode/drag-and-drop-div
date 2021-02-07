@@ -7,6 +7,8 @@
             #handle {
                 width: 10px;
                 height: 30px;
+                line-height: 30px;
+                text-align: center;
                 background: lightgrey;
                 position: fixed;
                 z-index: 10;
@@ -26,7 +28,7 @@
                 border-radius: 5px;
             }
 
-            #handle:before, #handle:after {
+            /* #handle:before, #handle:after {
                 content: "";
                 position: absolute;
                 width: 5px;
@@ -34,14 +36,14 @@
                 background-color: black;
                 border-radius: 50%;
                 left: 0px;
-            }
-
+            } 
+            
             #handle:before {
                 top: 5px;
             }
             #handle:after {
                 top: 15px;
-            }
+            } */
             .grabbable {
                 cursor: all-scroll; /* fallback if grab cursor is unsupported */
                 /* cursor: grab; */
@@ -87,7 +89,7 @@
         </script>
     </head>
     <body>
-        <div id="handle" class="grabbable" draggable="true"></div>
+        <div id="handle" class="grabbable" draggable="true">&#8942;</div>
         <div id="buffer" contenteditable="true" spellcheck="false"></div>
     </body>
 </html>
