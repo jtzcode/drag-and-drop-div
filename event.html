@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+    <head>
+        <script>
+            window.onload = () => {
+                let element = document.getElementById("in");
+                element.addEventListener("compositionstart", e => {
+                    console.log("==== start ====")
+                    console.log(e);
+                })
+                element.addEventListener("compositionupdate", e => {
+                    console.log("==== update ====")
+                    console.log(e);
+                })
+                element.addEventListener("compositionend", e => {
+                    console.log("==== end ====")
+                    console.log(e);
+                })
+                element.addEventListener("keydown", e => {
+                    console.log("==== keydown ====")
+                    console.log(e);
+                })
+                element.addEventListener("keyup", e => {
+                    console.log("==== keyup ====")
+                    console.log(e);
+                })
+                element.addEventListener("keypress", e => {
+                    console.log("==== keypress ====")
+                    console.log(e);
+                })
+            }
+        </script>
+    </head>
+    <body>
+        <input id="in">
+    </body>
+</html>

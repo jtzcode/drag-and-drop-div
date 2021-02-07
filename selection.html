@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+    <head>
+        <style>
+            #d {
+                width: 500px;
+                height: 500px;
+                background: wheat;
+            }
+        </style>
+        <script>
+            window.onload = () => {
+                let d = document.getElementById('d');
+                d.addEventListener('compositionupdate', evt => {
+                    console.log(evt);
+                    let s = window.getSelection();
+                    console.log('-- update --')
+                    console.log(s.getRangeAt(0));
+                })
+                d.addEventListener('keydown', evt => {
+                    let s = window.getSelection();
+                    console.log('-- keydown --')
+                    console.log(s.getRangeAt(0));
+                })
+                d.addEventListener('keyup', evt => {
+                    let s = window.getSelection();
+                    console.log('-- keyup --')
+                    console.log(s.getRangeAt(0));
+                })
+            }
+        </script>
+    </head>
+    <body>
+        <div id="d" contenteditable="true"></div>
+    </body>
+</html>

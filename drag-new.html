@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+    <head>
+        <style>
+            body {
+                background-color: darkcyan;
+            }
+            #handle {
+                width: 10px;
+                height: 30px;
+                background: lightgrey;
+                position: fixed;
+                z-index: 10;
+                border-bottom-left-radius: 5px;
+                border-top-left-radius: 5px;
+            }
+            #buffer {
+                min-width: 20px;
+                width: auto;
+                height: 30px;
+                background: white;
+                position: fixed;
+                box-sizing: border-box;
+                outline: none;
+                padding: 5px 10px;
+                border: 1px solid transparent;
+                border-radius: 5px;
+            }
+
+            #handle:before, #handle:after {
+                content: "";
+                position: absolute;
+                width: 5px;
+                height: 5px;
+                background-color: black;
+                border-radius: 50%;
+                left: 0px;
+            }
+
+            #handle:before {
+                top: 5px;
+            }
+            #handle:after {
+                top: 15px;
+            }
+            .grabbable {
+                cursor: all-scroll; /* fallback if grab cursor is unsupported */
+                /* cursor: grab; */
+                /* cursor: -moz-grab; */
+                /* cursor: -webkit-grab; */
+            }
+            /* (Optional) Apply a "closed-hand" cursor during drag operation. */
+            .grabbable:active {
+                cursor: all-scroll;
+                /* cursor: -moz-grabbing; */
+                /* cursor: -webkit-grabbing; */
+            }
+            /*pseudo before: 3 dots*/
+        </style>
+        <script>
+            window.onload = () => {
+                let offsetX, offsetY;
+                let headerPadding = 20;
+                let handle = document.getElementById('handle');
+                let buffer = document.getElementById('buffer');
+                //handle.style.cursor = 'all-scroll';
+                handle.addEventListener('dragstart', function(evt) {
+                    console.log('Drag Started');
+                    offsetX = evt.offsetX;
+                    offsetY = evt.offsetY;
+                });
+                let dropArea = document.body;
+                dropArea.addEventListener('drop', function(evt) {
+                    //handle.style.cursor = 'all-scroll';
+                    evt.preventDefault();
+                    console.log('Dropped')
+                })
+                dropArea.addEventListener('dragover', function(evt) {
+                    //handle.style.cursor = 'all-scroll';
+                    evt.preventDefault();
+                    console.log('Drag Over');
+                    handle.style.left = (evt.clientX - offsetX) + 'px';
+                    handle.style.top = (evt.clientY - offsetY) + 'px';
+                    buffer.style.left = (evt.clientX - offsetX) + 'px';
+                    buffer.style.top = (evt.clientY - offsetY) + 'px';
+                });
+            }
+        </script>
+    </head>
+    <body>
+        <div id="handle" class="grabbable" draggable="true"></div>
+        <div id="buffer" contenteditable="true" spellcheck="false"></div>
+    </body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+    <head>
+        <style>
+            body {
+                background-color: darkcyan;
+            }
+            #handle {
+                width: 10px;
+                height: 20px;
+                background: lightgrey;
+                position: fixed;
+                z-index: 10;
+            }
+            #buffer {
+                /* min-width: 100px; */
+                width: 180px;
+                height: 75px;
+                background: white;
+                position: fixed;
+                margin-top: 25px;
+                box-sizing: border-box;
+                outline: none;
+                border: transparent;
+                border-bottom-right-radius: 10px;
+                border-bottom-left-radius: 10px;
+                z-index: 10;
+            }
+            .grabbable {
+                cursor: all-scroll; /* fallback if grab cursor is unsupported */
+                /* cursor: grab; */
+                /* cursor: -moz-grab; */
+                /* cursor: -webkit-grab; */
+            }
+            /* (Optional) Apply a "closed-hand" cursor during drag operation. */
+            .grabbable:active {
+                cursor: all-scroll;
+                /* cursor: -moz-grabbing; */
+                /* cursor: -webkit-grabbing; */
+            }
+            .input-panel {
+                background-color: #f5f5f5;
+                border: 1px solid transparent;
+                border-radius: 10px;
+                box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
+                width: 180px;
+                height: 100px;
+                position: fixed;
+            }
+            /*pseudo before: 3 lines*/
+            .input-panel:before {
+                content: "";
+                cursor: move;
+                position: absolute;
+                left: 50%;
+                top: 0.25em;
+                margin-left: -0.5em;
+                width: 1em;
+                height: 0.15em;
+                background: darkgrey;
+                box-shadow: 
+                    0 0.25em 0 0 darkgrey,
+                    0 0.5em 0 0 darkgrey;
+            }
+            /*pseudo before: 3 dots*/
+        </style>
+        <script>
+            window.onload = () => {
+                let offsetX, offsetY;
+                let headerPadding = 20;
+                // let handle = document.getElementById('handle');
+                let panel = document.getElementById('panel');
+                let buffer = document.getElementById('buffer');
+                //handle.style.cursor = 'all-scroll';
+                panel.addEventListener('dragstart', function(evt) {
+                    console.log('Drag Started');
+                    offsetX = evt.offsetX;
+                    offsetY = evt.offsetY;
+                });
+                let dropArea = document.body;
+                dropArea.addEventListener('drop', function(evt) {
+                    //handle.style.cursor = 'all-scroll';
+                    evt.preventDefault();
+                    console.log('Dropped')
+                })
+                dropArea.addEventListener('dragover', function(evt) {
+                    //handle.style.cursor = 'all-scroll';
+                    evt.preventDefault();
+                    console.log('Drag Over');
+                    panel.style.left = (evt.clientX - offsetX) + 'px';
+                    panel.style.top = (evt.clientY - offsetY) + 'px';
+                    buffer.style.left = (evt.clientX - offsetX) + 'px';
+                    buffer.style.top = (evt.clientY - offsetY) + 'px';
+                });
+            }
+        </script>
+    </head>
+    <body>
+        <div id="panel" class="input-panel" draggable="true">
+            <!-- <div id="handle" class="grabbable" draggable="true"></div> -->
+            <!-- <div class="panel-header"></div> -->
+            <div id="buffer" contenteditable="true" spellcheck="false"></div>
+        </div>
+
+        <!-- <div id="panel" class="new-panel" draggable="true">
+            <div id="buffer" contenteditable="true" spellcheck="false"></div>
+        </div> -->
+    </body>
+</html>
